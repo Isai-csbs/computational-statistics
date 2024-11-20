@@ -1,0 +1,49 @@
+# Import necessary libraries
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+from scipy.stats import skew, kurtosis
+
+# Step 1: Load the Iris dataset
+# You can load the dataset from seaborn, which contains a built-in Iris dataset
+iris = sns.load_dataset('iris')
+
+# Step 2: Select an attribute from the dataset and print the first five records
+selected_attribute = 'sepal_length'  # You can change this to any attribute you want to analyze
+print(f"First 5 rows of the selected attribute ({selected_attribute}):")
+print(iris[selected_attribute].head())
+
+# Step 3: Plot the Histogram and Kernel Density Estimation (KDE) of the selected attribute
+plt.figure(figsize=(12, 6))
+
+# Plot histogram
+plt.subplot(1, 2, 1)
+sns.histplot(iris[selected_attribute], kde=False, color='blue', bins=20)
+plt.title(f"Histogram of {selected_attribute}")
+plt.xlabel(f"{selected_attribute}")
+plt.ylabel("Frequency")
+
+# Plot KDE
+plt.subplot(1, 2, 2)
+sns.kdeplot(iris[selected_attribute], color='red')
+plt.title(f"KDE of {selected_attribute}")
+plt.xlabel(f"{selected_attribute}")
+plt.ylabel("Density")
+
+plt.tight_layout()
+plt.show()
+
+# Step 4: Print the probability plot for the selected attribute
+plt.figure(figsize=(6, 6))
+stats.probplot(iris[selected_attribute], dist="norm", plot=plt)
+plt.title(f"Probability Plot of {selected_attribute}")
+plt.show()
+
+# Step 5: Find the skewness for the selected attribute
+attribute_skewness = skew(iris[selected_attribute])
+print(f"Skewness of {selected_attribute}: {attribute_skewness}")
+
+# Step 6: Find the kurtosis for the selected attribute
+attribute_kurtosis = kurtosis(iris[selected_attribute])
+print(f"Kurtosis of {selected_attribute}: {attribute_kurtosis}")
