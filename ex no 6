@@ -1,0 +1,67 @@
+import numpy as np
+import pandas as pd
+
+# Aggregation on 1D Data (Series)
+data_1d = np.random.randint(1, 100, 10)  # 1D array of 10 random integers between 1 and 100
+print("1D Data: ", data_1d)
+
+# Convert to pandas Series for aggregation
+series = pd.Series(data_1d)
+
+print("\n1D Aggregation Results:")
+print("count():", series.count())  # Total number of non-null items
+print("first():", series.first())  # First item
+print("last():", series.last())  # Last item
+print("mean():", series.mean())  # Mean of items
+print("median():", series.median())  # Median of items
+print("min():", series.min())  # Minimum value
+print("max():", series.max())  # Maximum value
+print("std():", series.std())  # Standard deviation
+print("var():", series.var())  # Variance
+print("mad():", series.mad())  # Mean absolute deviation
+print("prod():", series.prod())  # Product of all items
+print("sum():", series.sum())  # Sum of all items
+
+
+# Aggregation on 2D Data (DataFrame)
+data_2d = np.random.randint(1, 100, (5, 4))  # 2D array (5 rows, 4 columns)
+print("\n2D Data: \n", data_2d)
+
+# Convert to pandas DataFrame for aggregation
+df = pd.DataFrame(data_2d, columns=['A', 'B', 'C', 'D'])
+
+print("\n2D Aggregation Results:")
+print("count():\n", df.count())  # Count of non-null values in each column
+print("first():\n", df.first())  # First row
+print("last():\n", df.last())  # Last row
+print("mean():\n", df.mean())  # Mean of each column
+print("median():\n", df.median())  # Median of each column
+print("min():\n", df.min())  # Minimum value in each column
+print("max():\n", df.max())  # Maximum value in each column
+print("std():\n", df.std())  # Standard deviation of each column
+print("var():\n", df.var())  # Variance of each column
+print("mad():\n", df.mad())  # Mean absolute deviation of each column
+print("prod():\n", df.prod())  # Product of all items in each column
+print("sum():\n", df.sum())  # Sum of all items in each column
+
+
+# Aggregation on n-D Data (n-dimensional array)
+data_nd = np.random.randint(1, 100, (3, 4, 5))  # n-dimensional array (3x4x5)
+print("\nN-D Data Shape: ", data_nd.shape)
+
+# Convert to pandas DataFrame for aggregation (flatten the n-D data)
+df_nd = pd.DataFrame(data_nd.reshape(-1, data_nd.shape[2]))
+
+print("\nN-D Aggregation Results:")
+print("count():\n", df_nd.count())  # Count of non-null values in each column
+print("first():\n", df_nd.first())  # First row
+print("last():\n", df_nd.last())  # Last row
+print("mean():\n", df_nd.mean())  # Mean of each column
+print("median():\n", df_nd.median())  # Median of each column
+print("min():\n", df_nd.min())  # Minimum value in each column
+print("max():\n", df_nd.max())  # Maximum value in each column
+print("std():\n", df_nd.std())  # Standard deviation of each column
+print("var():\n", df_nd.var())  # Variance of each column
+print("mad():\n", df_nd.mad())  # Mean absolute deviation of each column
+print("prod():\n", df_nd.prod())  # Product of all items in each column
+print("sum():\n", df_nd.sum())  # Sum of all items in each column
