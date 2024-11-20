@@ -1,0 +1,59 @@
+# Import necessary libraries
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy.optimize import minimize
+
+# Step 1: Generate 100 random values between 10 and 30 for X
+np.random.seed(42)  # For reproducibility
+X = np.random.uniform(10, 30, 100)
+
+# Step 2: Find the Y using the function y = 10 + 4x + e (where e is the error term)
+e = np.random.normal(0, 1, 100)  # Normal distribution for error term with mean=0 and std=1
+Y = 10 + 4 * X + e  # Linear model
+
+# Step 3: Put the X and Y values in a DataFrame
+data = pd.DataFrame({'X': X, 'Y': Y})
+
+# Step 4: Plot the generated values using regplot() function
+sns.regplot(x='X', y='Y', data=data, scatter_kws={'s': 20}, line_kws={'color': 'red'})
+plt.title("Generated Data with Linear Regression Line")
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.show()
+
+# Step 5: Find the OLS regression results using OLS model
+X_ols = sm.add_constant(X)  # Add constant to the X variable for intercept
+ols_model = sm.OLS(Y, X_ols).fit()  # Fit the OLS model
+
+# Print OLS regression results
+print("OLS Regression Results:")
+print(ols_model.summary())
+
+# Step 6: Calculate the standard deviation for the residuals
+residuals = Y - ols_model.predict(X_ols)  # Residuals: Actual Y - Predicted Y
+residuals_std = np.std(residuals)  # Standard deviation of residuals
+print(f"\nStandard Deviation of Residuals: {residuals_std}")
+
+# Step 7: Construct the MLE model using L-BFGS-B Memory optimization algorithm
+# MLE assumes a Gaussian likelihood, so we use the log-likelihood function to estimate parameters
+def log_likelihood(params, X, Y):
+    intercept, slope = params
+    residuals = Y - (intercept + slope * X)  # Model Y = intercept + slope * X
+    likelihood = -0.5 * np.sum(np.log(2 * np.pi) + residuals**2)  # Log-Likelihood for Gaussian errors
+    return -likelihood  # Return negative because minimize minimizes the function
+
+# Initial guesses for intercept and slope
+initial_params = [0, 0]  # Initial guess: intercept=0, slope=0
+
+# Minimize the negative log-likelihood using L-BFGS-B
+result = minimize(log_likelihood, initial_params, args=(X, Y), method='L-BFGS-B')
+
+# MLE estimated parameters
+mle_intercept, mle_slope = result.x
+print(f"\nMLE Estimated Parameters: Intercept = {mle_intercept}, Slope = {mle_slope}")
+
+# Step 8: Compare MLE parameters with OLS parameters
+print(f"\nOLS Parameters: Intercept = {ols_model.params[0]}, Slope = {ols_model.params[1]}")
