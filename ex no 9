@@ -1,0 +1,21 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+
+# Step 1: Prepare/Download the Data (Load Iris Dataset)
+iris = load_iris()
+df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+
+# Step 2: Select Attributes for the Horizontal Bar Chart
+# Here, we will use the mean values of the features as the data to plot the H-Plot.
+mean_values = df.mean()
+
+# Step 3: Plot the Horizontal Bar Chart (H-Plot)
+plt.figure(figsize=(10, 6))
+mean_values.plot(kind='barh', color='skyblue', edgecolor='black')
+plt.title('Horizontal Bar Chart (H-Plot) of Iris Dataset Attributes', fontsize=16)
+plt.xlabel('Mean Value of Features', fontsize=12)
+plt.ylabel('Features', fontsize=12)
+plt.grid(True, axis='x', linestyle='--', alpha=0.7)
+plt.show()
