@@ -1,0 +1,25 @@
+# Import necessary libraries
+import pandas as pd
+import seaborn as sns
+
+# Step 1: Load the Iris dataset
+iris = sns.load_dataset('iris')
+
+# Step 2: Print the first 10 records
+print("First 10 records of the Iris dataset:")
+print(iris.head(10))
+
+# Step 3: Find the number of rows and columns in the dataset
+num_rows, num_columns = iris.shape
+print(f"\nTotal number of rows: {num_rows}")
+print(f"Total number of columns: {num_columns}")
+
+# Step 4: Extract the column names and print them separately
+column_names = iris.columns
+print("\nColumn names in the Iris dataset:")
+print(column_names)
+
+# Step 5: Find the mean of all the numerical attributes
+mean_values = iris.mean()
+print("\nMean of all numerical attributes:")
+print(mean_values)
